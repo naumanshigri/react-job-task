@@ -1,0 +1,17 @@
+.dashboard {
+  // padding-top: 50px;
+  .side-bar {
+    border-right: 1px solid #032147;
+    height: 100vh;
+    padding-right: 0 !important;
+  }
+  ul {
+    list-style: none;
+    li {
+      padding: 15px;
+      border-bottom: 1px solid #032147;
+      border-radius: 15px;
+      cursor: pointer;
+    }
+  }
+}
