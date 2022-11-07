@@ -342,7 +342,7 @@ function Dashboard() {
               </Table>
             </TableContainer>
             {/* car pagination */}
-            {cars ? (
+            {carPageCount ? (
               <div className="pagination">
                 <Stack spacing={2}>
                   <Pagination
