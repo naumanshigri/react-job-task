@@ -409,7 +409,7 @@ function Dashboard() {
             </TableContainer>
 
             {/* Categories pagination */}
-            {category ? (
+            {categoryPageCount ? (
               <div className="pagination">
                 <Stack spacing={2}>
                   <Pagination
