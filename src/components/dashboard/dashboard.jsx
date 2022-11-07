@@ -236,33 +236,40 @@ function Dashboard() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {user.slice(0, 5).map((row) => (
-                    <TableRow
-                      key={row._id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell align="right">{row._id}</TableCell>
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.email}</TableCell>
-                      <TableCell align="right">{row.role}</TableCell>
-                      <TableCell align="right">{row.password}</TableCell>
-                    </TableRow>
-                  ))}
+                  {user &&
+                    user.map(({ _id, name, email, role, password }) => (
+                      <TableRow
+                        key={_id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell align="right">{_id}</TableCell>
+                        <TableCell component="th" scope="row">
+                          {name}
+                        </TableCell>
+                        <TableCell align="right">{email}</TableCell>
+                        <TableCell align="right">{role}</TableCell>
+                        <TableCell align="right">{password}</TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </TableContainer>
-            <div className="pagination">
-              <Stack spacing={2}>
-                <Pagination
-                  count={userPageCount}
-                  variant="outlined"
-                  color="primary"
-                  onChange={(event, val) => setUserPage(val)}
-                />
-              </Stack>
-            </div>
+            {user ? (
+              <div className="pagination">
+                <Stack spacing={2}>
+                  <Pagination
+                    count={userPageCount}
+                    variant="outlined"
+                    color="primary"
+                    onChange={(event, val) => setUserPage(val)}
+                  />
+                </Stack>
+              </div>
+            ) : (
+              "No Records Found"
+            )}
           </TabPanel>
 
           {/* cars  */}
@@ -285,65 +292,70 @@ function Dashboard() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {cars.map(
-                    ({
-                      _id,
-                      color,
-                      category,
-                      model,
-                      registrationNo,
-                      ownerId,
-                    }) => (
-                      <TableRow
-                        key={_id}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell align="right">{_id}</TableCell>
-                        <TableCell component="th" scope="row">
-                          {color}
-                        </TableCell>
-                        <TableCell align="right">{category}</TableCell>
-                        <TableCell align="right">{model}</TableCell>
-                        <TableCell align="right">{registrationNo}</TableCell>
-                        <TableCell align="right">{ownerId}</TableCell>
-                        <TableCell align="right">
-                          <a
-                            href="javascript:void(0);"
-                            onClick={() => handleUpdateCar(_id)}
-                          >
-                            <AiTwotoneEdit
-                              className="mr-2"
-                              style={{ color: "green" }}
-                            />
-                          </a>
-                        </TableCell>
-                        <TableCell align="right">
-                          <a href="#" onClick={() => handleDeteleCars(_id)}>
-                            <AiOutlineDelete
-                              className="mr-2"
-                              style={{ color: "red" }}
-                            />
-                          </a>
-                        </TableCell>
-                      </TableRow>
-                    )
-                  )}
+                  {cars &&
+                    cars.map(
+                      ({
+                        _id,
+                        color,
+                        category,
+                        model,
+                        registrationNo,
+                        ownerId,
+                      }) => (
+                        <TableRow
+                          key={_id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell align="right">{_id}</TableCell>
+                          <TableCell component="th" scope="row">
+                            {color}
+                          </TableCell>
+                          <TableCell align="right">{category}</TableCell>
+                          <TableCell align="right">{model}</TableCell>
+                          <TableCell align="right">{registrationNo}</TableCell>
+                          <TableCell align="right">{ownerId}</TableCell>
+                          <TableCell align="right">
+                            <a
+                              href="javascript:void(0);"
+                              onClick={() => handleUpdateCar(_id)}
+                            >
+                              <AiTwotoneEdit
+                                className="mr-2"
+                                style={{ color: "green" }}
+                              />
+                            </a>
+                          </TableCell>
+                          <TableCell align="right">
+                            <a href="#" onClick={() => handleDeteleCars(_id)}>
+                              <AiOutlineDelete
+                                className="mr-2"
+                                style={{ color: "red" }}
+                              />
+                            </a>
+                          </TableCell>
+                        </TableRow>
+                      )
+                    )}
                 </TableBody>
               </Table>
             </TableContainer>
             {/* car pagination */}
-            <div className="pagination">
-              <Stack spacing={2}>
-                <Pagination
-                  count={carPageCount}
-                  variant="outlined"
-                  color="primary"
-                  onChange={(event, val) => setCarPage(val)}
-                />
-              </Stack>
-            </div>
+            {cars ? (
+              <div className="pagination">
+                <Stack spacing={2}>
+                  <Pagination
+                    count={carPageCount}
+                    variant="outlined"
+                    color="primary"
+                    onChange={(event, val) => setCarPage(val)}
+                  />
+                </Stack>
+              </div>
+            ) : (
+              <div className="no-record">{"No Records found"}</div>
+            )}
           </TabPanel>
 
           {/* categoris  */}
@@ -362,48 +374,55 @@ function Dashboard() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {category.map(({ _id, name }) => (
-                    <TableRow
-                      key={_id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell align="right">{_id}</TableCell>
-                      <TableCell component="th" scope="row">
-                        {name}
-                      </TableCell>
-                      <TableCell align="right">
-                        <a href="#" onClick={() => handleUpdateCategory(_id)}>
-                          <AiTwotoneEdit
-                            className="mr-2"
-                            style={{ color: "green" }}
-                          />
-                        </a>
-                      </TableCell>
-                      <TableCell align="right">
-                        <a href="#" onClick={() => handleDeteleCategory(_id)}>
-                          <AiOutlineDelete
-                            className="mr-2"
-                            style={{ color: "red" }}
-                          />
-                        </a>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {category &&
+                    category.map(({ _id, name }) => (
+                      <TableRow
+                        key={_id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell align="right">{_id}</TableCell>
+                        <TableCell component="th" scope="row">
+                          {name}
+                        </TableCell>
+                        <TableCell align="right">
+                          <a href="#" onClick={() => handleUpdateCategory(_id)}>
+                            <AiTwotoneEdit
+                              className="mr-2"
+                              style={{ color: "green" }}
+                            />
+                          </a>
+                        </TableCell>
+                        <TableCell align="right">
+                          <a href="#" onClick={() => handleDeteleCategory(_id)}>
+                            <AiOutlineDelete
+                              className="mr-2"
+                              style={{ color: "red" }}
+                            />
+                          </a>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </TableContainer>
 
             {/* Categories pagination */}
-            <div className="pagination">
-              <Stack spacing={2}>
-                <Pagination
-                  count={categoryPageCount}
-                  variant="outlined"
-                  color="primary"
-                  onChange={(event, val) => setCategoryPage(val)}
-                />
-              </Stack>
-            </div>
+            {category ? (
+              <div className="pagination">
+                <Stack spacing={2}>
+                  <Pagination
+                    count={categoryPageCount}
+                    variant="outlined"
+                    color="primary"
+                    onChange={(event, val) => setCarPage(val)}
+                  />
+                </Stack>
+              </div>
+            ) : (
+              <div className="no-record">{"No Records found"}</div>
+            )}
           </TabPanel>
         </Box>
       </div>
