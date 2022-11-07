@@ -1,0 +1,19 @@
+.add-car {
+  .custom-select {
+    padding: 12px;
+  }
+}
+
+.back-btn {
+  width: 100%;
+  text-align: right;
+  a {
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    text-decoration: none;
+    outline: none;
+  }
+}

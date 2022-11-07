@@ -9,9 +9,14 @@ import "../../assets/style/user.style.scss";
 let { Group, Control } = Form;
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [userToken, setUserToken] = useState({ email: "", password: "" });
+  const [userToken, setUserToken] = useState({
+    email: "nauman@yopmail.com",
+    password: "123456",
+  });
+
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     let { name, value } = event.target;
@@ -28,7 +33,9 @@ const Login = () => {
         email,
         password,
       });
-      console.log("res", res);
+      let { token, user } = res.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
       navigate("/dashboard");
     } catch (error) {
       const { message } = error.response.data;

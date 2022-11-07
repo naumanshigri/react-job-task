@@ -1,20 +1,9 @@
-import React from "react";
-import { Redirect, Route } from "react-router-dom";
-
-function ProtectedRoute({ component: Component, ...restOfProps }) {
-  console.log(" *****in HOC");
-  let lcStrg = localStorage.getItem("token");
-  const tokenObject = JSON.parse(lcStrg);
-  const isAuthenticated = tokenObject.token;
-
-  return (
-    <Route
-      {...restOfProps}
-      render={(props) =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
-      }
-    />
-  );
-}
+import { Navigate } from "react-router-dom";
+const ProtectedRoute = ({ user, children }) => {
+  if (!user) {
+    return <Navigate to="/sign-in" replace />;
+  }
+  return children;
+};
 
 export default ProtectedRoute;
